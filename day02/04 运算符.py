@@ -16,6 +16,9 @@
 
 # 1 在没有()的情况下，优先级：not > and > or，同一优先级从左至右依次计算
 # 情况1：两边都是比较运算
+"""
+x and y，如果 x 为 False，x and y 返回 False，否则它返回 y 的计算值
+"""
 # print(2 > 1 and 3 < 4 or 4 > 5 and 2 < 1)
 # print(True or False)
 
