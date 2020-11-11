@@ -88,7 +88,7 @@ print('sum: {}'.format(num_1 + num_2))
 # 如：content = input("请输入内容:") 用户输入：5+9或5+ 9或5 + 9，然后进行分割再进行计算。
 """
 content = input("请输入内容: ")
-print(int(content.split('+')[0].strip()) + int(content.split('+')[1].strip()))
+print(int(content.split('+')[0]) + int(content.split('+')[1]))
 """
 # 选做题：实现一个整数加法计算器（多个数相加）：
 # 如：content = input("请输入内容:") 用户输入：5+9+6 +12+ 13，然后进行分割再进行计算。
@@ -96,7 +96,7 @@ print(int(content.split('+')[0].strip()) + int(content.split('+')[1].strip()))
 content = input("请输入内容:").split('+')
 count = 0
 for i in content:
-    count += int(i.strip())
+    count += int(i)
 print(count)
 """
 # 计算用户输入的内容中有几个整数（以个位数为单位）。
