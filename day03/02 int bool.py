@@ -1,9 +1,10 @@
 # int  主要用于计算   + - * /
 # 不同的进制之间的转换。10进制，2进制。
-'''
+
+"""
 二进制转换成十进制
 0001 1010     ------> ?  26
-'''
+"""
 b = 1 * 2**4 + 1 * 2**3 + 0 * 2**2 + 1 * 2**1 + 0 * 2**0
 # print(b)  # 26
 
@@ -17,7 +18,7 @@ print(i.bit_length())  # 3
 i = 5
 print(i.bit_length())  # 3
 i = 42
-print(i.bit_length())  # 4
+print(i.bit_length())  # 6
 
 # bool str int
 # bool  <---> int

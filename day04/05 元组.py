@@ -6,11 +6,11 @@ tu = (100, '太白', True, [1, 2, 3])
 # for i in tu:
 #     print(i)
 
-# print(len(tu))
-# tu[-1].append(666)
-# print(tu)
-# del tu[2]
-# print(tu)
+print(len(tu))
+tu[-1].append(666)
+print(tu)
+del tu[2]
+print(tu)
 
 # 应用：
 # 重要数据，用户名，密码，个人信息，不想让别人改动的一些数据，存在元组中。

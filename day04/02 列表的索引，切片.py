@@ -1,12 +1,11 @@
 li = [100, '太白', True, [1, 2, 3]]
 # 索引
-# print(li[0], type(li[0]))
-# print(li[1],type(li[1]))
-# print(li[-1])
+print(li[0], type(li[0]))
+print(li[1], type(li[1]))
+print(li[-1])
 
 # 切片 （顾头不顾腚）
-# print(li[:2])
-
+print(li[:2])
 
 # 练习题
 li = [1, 3, 2, "a", 4, "b", 5, "c"]
@@ -20,4 +19,3 @@ li = [1, 3, 2, "a", 4, "b", 5, "c"]
 # print(li[-3::-2])
 # 通过对li列表的切片形成新的列表l5,l5 = ["c"]
 # print(li[-1:])
-
