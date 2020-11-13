@@ -142,4 +142,3 @@ l2.sort()
 print(id(l2))
 # l2.sort(reverse=True)
 print(l2)
-
