@@ -103,4 +103,32 @@ goods = [
 ]
 # 1. 页面显示 序号 + 商品名 + 价格  如
 #                                   1 电脑 1999
-#                                   2 鼠标 20   。。。。
+#                                   2 鼠标 10   。。。。
+# 2. 用户输入选择的商品序号，然后打印商品名称及商品价格
+# 3. 如果用户输入的商品序号有误，则提示输入有误，并重新输入
+# 4. 用户输入Q或者q，退出程序
+# for i in range(len(goods)):
+#     print(i + 1, goods[i]['name'], goods[i]['price'])
+while True:
+    for index, dic in enumerate(goods):
+        print("{} \t {} \t {}".format(index + 1, dic["name"], dic["price"]))
+    num_1 = input("请输入商品序号：")
+    if num_1.isdecimal():
+        num_1 = int(num_1)
+        # if num_1 in range(1, 5):
+        if 0 < num_1 <= len(goods):
+            num_1 -= 1
+            print("商品名称: {} 商品价格: {}".format(goods[num_1]['name'], goods[num_1]['price']))
+        else:
+            print("输入的序号超出界限")
+    elif num_1.upper() == "Q":
+        print("退出程序")
+        break
+    else:
+        print("请输入非字母元素")
+
+# 看代码写结果
+v = {}
+for index in range(10):
+    v['users'] = index
+print(v)  # {'users': 9}
