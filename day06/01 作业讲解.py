@@ -110,8 +110,8 @@ goods = [
 # for i in range(len(goods)):
 #     print(i + 1, goods[i]['name'], goods[i]['price'])
 while True:
-    for index, dic in enumerate(goods):
-        print("{} \t {} \t {}".format(index + 1, dic["name"], dic["price"]))
+    for index, dic in enumerate(goods, 1):
+        print("{} \t {} \t {}".format(index, dic["name"], dic["price"]))
     num_1 = input("请输入商品序号：")
     if num_1.isdecimal():
         num_1 = int(num_1)
