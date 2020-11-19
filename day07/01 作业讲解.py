@@ -1,16 +1,10 @@
 # 1.请用代码验证"name" 是否在字典的键中
 info = {'name': '盖伦', 'hobby': '锤子', 'age': '18', }  # 100个键值对
-if 'name' in info.keys():
-    print('yes')
-else:
-    print('no')
+print('name' in info.keys())
 
 # 2.验证'alex'是否在字典的值中
 # info = {'name':'盖伦','hobby':'锤子','age':'18',...100个键值对}
-if 'alex' in info.values():
-    print('yes')
-else:
-    print('no')
+print('alex' in info.values())
 
 # 3.写代码
 v1 = {'盖伦', '皇子', '赵信', '德玛'}
@@ -60,8 +54,8 @@ print(v1)
 print(v2)
 """
 # 7.判断以下值哪个能做字典的key？  哪个能做集合的元素？  1  -1  ""  None  [1,2]  (1,)  {11,22,33,4}  {'name':'lwq','age':18}
-# 字典的key  1 -1 (1,)
-# 集合的元素  1  -1  (1,) ""
+# 字典的key  1 -1 (1,) ""  None
+# 集合的元素  1 -1 (1,) ""  None
 
 # 8.is 和 == 的区别
 # is 判断id内存地址是否相等
@@ -150,7 +144,8 @@ data = {}
 for i in range(10):
     data['user'] = i
     data_list.append(data)
-print(data)  # {'user': 9}
+print(data_list)
+# {'user': 9,'user': 9,'user': 9,'user': 9,'user': 9,.....'user': 9}
 
 # 21.看代码写结果并解释原因
 data_list = []
