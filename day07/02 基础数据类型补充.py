@@ -111,11 +111,9 @@ print(dic)  # {1: [666], 2: [666], 3: [666]}
 
 # 将字典中所有键带k元素的键值对删除
 dic = {'k1': '太白', 'k2': 'barry', 'k3': '白白', 'age': 18}
-l1 = list(dic.keys())
-for i in l1:
+for i in list(dic.keys()):
     if 'k' in i:
-        # print(i)
         dic.pop(i)
 print(dic)
 
-
+# 字典在循环时，不能改变字典的大小，只要改变大小，就会报错
