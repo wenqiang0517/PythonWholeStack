@@ -159,30 +159,31 @@ print(b3, type(b3))
 # 21，用户输入一个数字，判断一个数是否为水仙花数
 # 水仙花数是一个三位数，三位数的每一位的三次方的和还等于这个数，那这个数就是水仙花数
 # 153 = 1**3 + 5**3 + 3**3
-content = input('请输入：').strip()
-l1 = []
-if content.isdecimal():
-    if 99 < int(content) < 1000:
-        l1.extend(str(content))
-        # sum_1 = (int(l1[0])**3) + (int(l1[1])**3) + (int(l1[2])**3)
-        if int(content) == ((int(l1[0]) ** 3) + (int(l1[1]) ** 3) + (int(l1[2]) ** 3)):
-            print('水仙花数')
-        else:
-            print('不是水仙花数')
-    else:
-        print('输入不在范围')
-else:
-    print('输入错误')
+# content = input('请输入：').strip()
+# if content.isdecimal():
+#     if 99 < int(content) < 1000:
+#         if int(content) == ((int(content[0]) ** 3) + (int(content[1]) ** 3) + (int(content[2]) ** 3)):
+#             print('水仙花数')
+#         else:
+#             print('不是水仙花数')
+#     else:
+#         print('输入不在范围')
+# else:
+#     print('输入错误')
 
 # 22，把列表中所有姓周的人的信息删掉
 lst = ['周老二', '周星星', '麻花藤', '周扒皮']
 # 结果 lst = ['麻花藤']
-l1 = []
-for i in lst:
-    if '周' in i:
-        l1.append(i)
-for i in l1:
-    lst.remove(i)
+# l1 = []
+# for i in lst:
+#     if '周' in i:
+#         l1.append(i)
+# for i in l1:
+#     lst.remove(i)
+
+for i in range(len(lst)-1, -1, -1):
+    if lst[i].strip()[0] == '周':
+        lst.pop(i)
 print(lst)
 
 # 23, 车牌区域划分，先给出以下车牌，根据车牌的信息，分析出各省的车牌持有量
@@ -190,13 +191,15 @@ cars = ['鲁A32444', '鲁B12333', '京B8989M', '黑C49678', '黑C46555', '沪B25
 locals = {'沪': '上海', '黑': '黑龙江', '鲁': '山东', '鄂': '湖北', '湘': '湖南', '京': '北京'}
 # 结果：{'黑龙江':2,'山东':1,'北京':1}
 dic1 = {}
-for i in cars:
-    i = i[0]
-    if i in locals.keys():
-        if locals[i] in dic1.keys():
-            dic1[locals[i]] += 1
-        else:
-            dic1[locals[i]] = 1
-print(dic1)
+# for i in cars:
+#     i = i[0]
+#     if i in locals.keys():
+#         if locals[i] in dic1.keys():
+#             dic1[locals[i]] += 1
+#         else:
+#             dic1[locals[i]] = 1
 
+for i in cars:
+    dic1[locals[i[0]]] = dic1.get(locals[i[0]], 0) + 1
+print(dic1)  # {'山东': 2, '北京': 1, '黑龙江': 2, '上海': 1}
 
