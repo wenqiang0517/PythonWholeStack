@@ -245,13 +245,14 @@ print('list3=%s' % list3)
 #     print({'max': max(args), 'min': min(args)})
 # min_max(2,5,7,8,4)
 # 21,写函数，传入n个数，返回n的阶乘，例如cal(7) 计算7654321
-# def func(n):
-#     obj = iter(range(n, 0, -1))
-#     num_1 = next(obj)
-#     for i in range(n-1):
-#         num_1 *= next(obj)
-#     print(num_1)
-# func(7)
+"""
+def func(n):
+    count = 1
+    for i in range(n, 0, -1):
+        count = count * i
+    print(count)
+func(7)
+"""
 
 # 22，写函数，返回一个扑克牌列表，里面有52项，每一项是一个元组，例如 [('红心', 2),('草花', 2),....('黑桃', A)]
 # def func():
