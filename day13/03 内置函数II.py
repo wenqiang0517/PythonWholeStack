@@ -18,8 +18,8 @@ exec(s)
 print(hash('adsdsa'))
 
 # help 帮助
-print(help(list))
-print(help(str.split))
+# print(help(list))
+# print(help(str.split))
 
 # callable 判断一个对象是否可被调用
 name = 'alex'
