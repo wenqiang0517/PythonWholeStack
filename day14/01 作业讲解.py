@@ -138,7 +138,7 @@ l1 = [1, 2, 3, 4, 5, 6]
 l2 = ['oldboy', 'alex', 'wusir', '太白', '日天']
 tu = ('**', '***', '****', '*******')
 # 写代码，最终得到的是(每个元组第一个元素>2,第三个*至少是4个)
-# [(3, 'wusir', ''),(4,'太白','*******')] 这样的数据
+# [(3, 'wusir', '****'),(4,'太白','*******')] 这样的数据
 print(list(zip(l1[2:], l2, tu)))
 
 # 7，有如下数据类型
@@ -165,12 +165,12 @@ l1 = [{'sales_volumn': 0},
 
 # 11，求结果
 """
-v = [lambda: x for x in range(10)]
-print(v)    # [<function <listcomp>.<lambda> at 0x000000A1CA79B310>, ...<function <listcomp>.<lambda> at 0x000000A1CA79B550>]
-print(v[0])     # <function <listcomp>.<lambda> at 0x000000A1CA79B310>
-print(v[0]())   # 9
-print(next(v))  # TypeError
-print(next(v)())  # TypeError
+v = (lambda: x for x in range(10))
+print(v)    # <generator object <genexpr> at 0x7fbaf66b49e0>
+# print(v[0])     # TypeError
+# print(v[0]())   # TypeError
+print(next(v))  # <function <genexpr>.<lambda> at 0x7fa01e6b9550>
+print(next(v)())  # 1
 """
 
 # 12，map(str,[1,2,3,4,5,6,7,8,9])输出是什么
@@ -189,17 +189,54 @@ def func(l):
 func([34, 1, 2, 5, 6, 6, 5, 4, 3, 3])
 
 # 15，写一个函数完成三次登录功能：
-# 用户的用户名密码从一个文件register中取出
+# 用户的用户名密码从一个文件 register 中取出
 # register文件包含多个用户名，密码，用户名密码通过|隔开，每个人的用户名密码占用文件中一行
 # 完成三次验证，三次验证不成功则登陆失败，登录失败返回False
 # 登陆成功返回True
-#
+# def login():
+#     l = []
+#     count = 0
+#     with open('register', encoding='utf-8') as f:
+#         for i in f:
+#             l.append(tuple(i.strip().split('|')))
+#     dic = dict(l)
+#     while count < 3:
+#         user = input('请输入用户名：')
+#         passwd = input('请输入密码：')
+#         if (user in dic) and (passwd == dic[user]):
+#             return True
+#         else:
+#             print('用户名密码错误')
+#         count += 1
+#     else:
+#         return False
+# print(login())
+
 # 16，再写一个函数完成注册功能
 # 用户输入用户名密码注册
 # 注册时要验证（文件register中）用户名是否存在，如果存在则让其重新输入用户名，如果不存在，则注册成功
 # 注册成功后，将注册成功的用户名，密码写入register文件，并以|隔开
 # 注册成功后，返回True，否则返回False
-#
+"""
+def register():
+    l = []
+    with open('register', encoding='utf-8') as f:
+        for i in f:
+            l.append(tuple(i.strip().split('|')))
+    dic = dict(l)
+    user = input('请输入用户名：')
+    passwd = input('请输入密码：')
+    while True:
+        if user not in dic:
+            with open('register', encoding='utf-8', mode='a') as f1:
+                f1.write(f'{user}|{passwd}\n')
+            return True
+        else:
+            print('用户已存在')
+            user = input('请重新输入用户名：')
+print(register())
+"""
+
 # 17，用完成一个员工信息表的增删功能
 # 文件存储格式如下：
 # id, name, age, phone, job
@@ -211,13 +248,31 @@ func([34, 1, 2, 5, 6, 6, 5, 4, 3, 3])
 # 但id要实现自增(id是不需要用户输入的但是必须按照顺序增加)
 # 第二个功能是实现给原文件删除数据，用户只需输入id，则将原文件对应的这一条数据删除(删除后下面的id不变，比如此时你输入1，则将第一条数据删除，
 # 但是下面所有数据的id值不变及太白，nezha的id不变)。
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+def insert_info():
+    l = []
+    name = input('请输入姓名：')
+    age = input('请输入年龄：')
+    phone = input('请输入电话：')
+    job = input('请输入工作：')
+    with open('message', encoding='utf-8', mode='r+') as f:
+        for i in f:
+            l.append(i.strip().split(','))
+        f.write(f'{int(l[-1][0]) + 1},{name},{age},{phone},{job}\n')
+
+
+import os
+def delete_info():
+    id = input('请输入id：')
+    with open('message', encoding='utf-8') as f1, open('message.bak', encoding='utf-8', mode='w') as f2:
+        for line in f1:
+            if line.strip()[0] == id:
+                pass
+            else:
+                f2.write(line)
+    os.remove('message')
+    os.rename('message.bak', 'message')
+
+# insert_info()
+
+# delete_info()
+
