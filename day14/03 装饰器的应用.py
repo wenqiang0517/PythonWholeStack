@@ -1,18 +1,29 @@
 # 装饰器的应用：登录认证
 # 模拟博客园登录，装饰器的认证功能
 
+status_dict = {'username': None, 'status': False}
+
 
 def login():
-    print('完成登录功能')
-    pass
+    count = 0
+    while count < 3:
+        count += 1
+        username = input('请输入用户名：').strip()
+        passwd = input('请输入密码：').strip()
+        if username == 'lwq' and passwd == '123456':
+            print('登录成功')
+            status_dict['username'] = username
+            status_dict['status'] = True
+            return status_dict
+        else:
+            print('登录失败')
+            status_dict['username'] = username
+            status_dict['status'] = False
 
 
 def register():
     print('完成注册功能')
     pass
-
-
-status_dict = {'username': None, 'status': False}
 
 
 def auth(f):
@@ -28,16 +39,14 @@ def auth(f):
             ret = f(*args, **kwargs)
             return ret
         else:
-            username = input('请输入用户名：').strip()
-            passwd = input('请输入密码：').strip()
-            if username == 'lwq' and passwd == '123456':
-                print('登录成功')
-                status_dict['username'] = username
-                status_dict['status'] = True
+            login()
+            if status_dict['status']:
                 ret = f(*args, **kwargs)
                 return ret
             else:
-                print('登录失败')
+                print('请重新登录')
+                return status_dict
+
         '''访问函数之后的操作，功能'''
     return inner
 
