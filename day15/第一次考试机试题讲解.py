@@ -38,33 +38,60 @@ dic = {'k1': 'v1', 'k2': ['alex', 'sb'], (1, 2, 3,): {'k3': ['2', 100, 'wer']}}
 # o退出投票程序后，要显示最终每个电影的投票数。
 # 建议最终投票的结果为这种形式：
 # {'⾦瓶梅': 0, '复仇者联盟4': 0, '驯龙高手3': 0, '老男孩': 0,'大话西游':0}
-dic = {'金瓶梅': 0, '复仇者联盟4': 0, '驯龙高手3': 0, '老男孩': 0, '大话西游': 0}
+"""
+dic = {}
 lst = ['金瓶梅', '复仇者联盟4', '驯龙高手3', '老男孩', '大话西游']
 
-for index in range(len(lst)):
-    print(f'{index + 1} {lst[index]}')
-
 while 1:
-    content = input("请输入序号(输入q或者Q退出): ")
-    if content.strip().upper() == 'Q':
+    for x, y in enumerate(lst):
+        print(x + 1, y)
+    content = input("请输入序号(输入q或者Q退出): ").strip()
+    if content.isdecimal():
+        content = int(content)
+        if 0 < content <= len(lst):
+            if lst[content - 1] in dic:
+                print(f'给{lst[content - 1]}投票 1')
+                dic[lst[content - 1]] += 1
+            else:
+                print(f'给{lst[content - 1]}投票 1')
+                dic[lst[content - 1]] = 1
+        else:
+            print('输出有误')
+    elif content.upper() == 'Q':
         print(dic)
         break
-    elif (int(content.strip()) - 1) in range(len(lst)):
-        index = int(content.strip()) - 1
-        print(f'给{lst[index]}投票 1')
-        dic[lst[index]] = dic[lst[index]] + 1
     else:
         print('输出有误')
-
+"""
 
 # 5.有文件t1.txt里面的内容为:（10分）
 # id,name,age,phone,job
-# 1,alex,22,13651054608,IT 2,wusir,23,13304320533,Tearcher 3,taibai,18,1333235322,IT
+# 1,alex,22,13651054608,IT
+# 2,wusir,23,13304320533,Tearcher
+# 3,taibai,18,1333235322,IT
 # 利用文件操作，将其构造成如下数据类型。
 # [{'id':'1','name':'alex','age':'22','phone':'13651054608','job':'IT'},......]
-
+# lst = []
+# with open('t1.txt', encoding='utf-8') as f:
+#     f = f.readlines()
+#     for i in f[1:]:
+#         i = i.strip().split(',')
+#         dic = {f[0].split(',')[0]: i[0], f[0].split(',')[1]: i[1], f[0].split(',')[2]: i[2],
+#                f[0].split(',')[3]: i[3], f[0].split(',')[4].strip(): i[4], }
+#         lst.append(dic)
+#     print(lst)
 
 # 6.按要求完成下列转化。(10分)
+# list4 = [
+#     {"name": "alex", "hobby_list": ["抽烟", "喝酒", "烫头", "Massage"]},
+#     {"name": "wusir", "hobby_list": ["喊麦", "街舞", "出差"]},
+# ]
+# 将list3 这种数据类型转化成list4类型,你写的代码必须支持可拓展.
+# 比如list3 数据在加一个这样的字典{"name": "wusir", "hobby": "溜达"},
+# list4 {"name": "wusir", "hobby_list": ["喊麦", "街舞", "溜达"]
+# 或者list3增加一个字典{"name": "太白", "hobby": "开车"},
+# list4{"name": "太白", "hobby_list": ["开车"],
+# 无论按照要求加多少数据,你的代码都可以转化.如果不支持拓展,则4分,支持拓展则10分.
 list3 = [
     {"name": "alex", "hobby": "抽烟"},
     {"name": "alex", "hobby": "喝酒"},
@@ -74,13 +101,29 @@ list3 = [
     {"name": "wusir", "hobby": "街舞"},
     {"name": "wusir", "hobby": "出差"},
 ]
-list4 = [
-    {"name": "alex", "hobby_list": ["抽烟", "喝酒", "烫头", "Massage"]},
-    {"name": "wusir", "hobby_list": ["喊麦", "街舞", "出差"]},
-]
-# 将list3 这种数据类型转化成list4类型,你写的代码必须支持可拓展.
-# 比如list3 数据在加一个这样的字典{"name": "wusir", "hobby": "溜达"},
-# list4 {"name": "wusir", "hobby_list": ["喊麦", "街舞", "溜达"]
-# 或者list3增加一个字典{"name": "太白", "hobby": "开车"},
-# list4{"name": "太白", "hobby_list": ["开车"],
-# 无论按照要求加多少数据,你的代码都可以转化.如果不支持拓展,则4分,支持拓展则10分.
+"""
+# 第一种方式
+list4 = []
+for i in list3:
+    for x in list4:
+        if i['name'] == x['name']:
+            x['hobby_list'].append(i['hobby'])
+            break
+    else:
+        list4.append({'name': i['name'], 'hobby_list': [i['hobby'], ]})
+print(list4)
+"""
+
+# 第二种方式
+# dic = {'alex':{"name": "alex", "hobby_list": ["抽烟", "喝酒", "烫头", "Massage"]},
+# "wusir": {"name": "wusir", "hobby_list": ["喊麦", "街舞","出差"]}
+#  }
+# print(list(dic.values()))
+dic = {}
+for i in list3:
+    if i['name'] not in dic:
+        dic[i['name']] = {'name': i['name'], 'hobby_list': [i['hobby'], ]}
+    else:
+        dic[i['name']]['hobby_list'].append(i['hobby'])
+print(list(dic.values()))
+
