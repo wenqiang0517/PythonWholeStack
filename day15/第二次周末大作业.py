@@ -2,25 +2,152 @@
 # 作业：用代码模拟博客园系统。
 # 项目分析：
 # 一．首先程序启动，页面显示下面内容供用户选择：
-# \1. 请登录
-# \2. 请注册
-# \3. 进入文章页面
-# \4. 进入评论页面
-# \5. 进入日记页面
-# \6. 进入收藏页面
-# \7. 注销账号
-# \8. 退出整个程序
+# 1. 请登录
+# 2. 请注册
+# 3. 进入文章页面
+# 4. 进入评论页面
+# 5. 进入日记页面
+# 6. 进入收藏页面
+# 7. 注销账号
+# 8. 退出整个程序
 
 # 二．必须实现的功能：
 # \1. 注册功能要求：
 # a.用户名、密码要记录在文件中。
 # b.用户名要求：只能含有字母或者数字不能含有特殊字符并且确保用户名唯一。
 # c.密码要求：长度要在6~14个字符之间。
+import os
+import sys
+user_status = {'name': None, 'status': False}
+
+
+def user_dic():
+    with open('user.txt', encoding='utf-8') as f:
+        user_dic_ = {}
+        for i in f:
+            i = i.strip().split('|')
+            user_dic_[i[0]] = i[1]
+    print(user_dic_)
+    return user_dic_
+
+
+def login():
+    global user_status
+    user_dic_ = user_dic()
+    for i in range(3):
+        username = input('请输入用户名：').strip()
+        password = input('请输入密码：').strip()
+        if username in user_dic_.keys():
+            if user_dic_[username] == password:
+                print('登陆成功')
+                user_status.update(name=username, status=True)
+                return username
+            else:
+                print('密码错误')
+                user_status.update(name=username, status=False)
+        else:
+            print('用户名不存在')
+    else:
+        exit_s()
+
+
+def register():
+    user_dic_ = user_dic()
+    username = input('请输入用户名：').strip()
+    password = input('请输入密码：').strip()
+    if username in user_dic_.keys():
+        print('用户名已存在，请重新输入')
+    else:
+        if username.isalnum():
+            if 5 < len(password) < 15:
+                with open('user.txt', encoding='utf-8', mode='a') as f:
+                    f.write(f'{username}|{password}\n')
+                    print('注册成功')
+            else:
+                print('密码长度要在6~14个字符之间')
+        else:
+            print('用户名只能包含字母或者数字')
+
+
+def auth(func):
+    def inner(*args, **kwargs):
+        if user_status['status']:
+            func(*args, **kwargs)
+        else:
+            print('请先登陆')
+            # login()
+    return inner
+
+
+@auth
+def article():
+    print(f'欢迎{user_status["name"]}进入文章页面')
+    while 1:
+        choose = input('请选择 1,直接写入内容 2,导入md文件 3,退出: ')
+        if choose.isdecimal():
+            if choose == '1':
+                file_name = input('请输入文件名：')
+                file_content = input('请输入文件内容：')
+                with open(file_name, encoding='utf-8', mode='w') as f:
+                    f.write(file_content)
+            elif choose == '2':
+                file_name = input('请输入要导入的md文件路径：')
+                with open(file_name, encoding='utf-8') as f, open(f'{file_name}.txt', encoding='utf-8', mode='w') as f1:
+                    for i in f:
+                        f1.write(i)
+                os.remove(file_name)
+            elif choose == '3':
+                break
+            else:
+                print('请输入1或2')
+        else:
+            print('输入有误')
+
+
+@auth
+def comment():
+    print(f'欢迎{user_status["name"]}进入评论页面')
+
+@auth
+def diary():
+    print(f'欢迎{user_status["name"]}进入日记页面')
+
+@auth
+def collect():
+    print(f'欢迎{user_status["name"]}进入收藏页面')
+
+@auth
+def logout():
+    print('注销账号')
+    user_status['status'] = False
+
+
+def exit_s():
+    exit()
+
+
+def run():
+    options = {1: ['请登录', login], 2: ['请注册', register], 3: ['进入文章页面', article], 4: ['进入评论页面', comment],
+               5: ['进入日记页面', diary], 6: ['进入收藏页面', collect], 7: ['注销账号', logout], 8: ['退出整个程序', exit_s]}
+    while 1:
+        for x, y in options.items():
+            print(f'{x}. {y[0]}')
+        choose = input('请选择：').strip()
+        if choose.isdecimal():
+            if int(choose) in options.keys():
+                options[int(choose)][1]()
+            else:
+                print('输入不在范围')
+        else:
+            print('输入有误，请重新输入')
+
+
+run()
 
 # \2. 登录功能要求：
-# a.用户输入用户名、密码进行登录验证。
+# a.用户输入用户名、密码进行登录验证
 # b.登录成功之后，才可以访问3~7选项，如果没有登录或者登录不成功时访问3~7选项，不允许访问，让其先登录。（装饰器）
-# c.超过三次登录还未成功，则退出整个程序。
+# c.超过三次登录还未成功，则退出整个程序
 
 # \3. 进入文章页面要求：
 # a.提示欢迎xx进入文章页面。
@@ -36,8 +163,8 @@
 
 # 三． ** 选做功能 **：
 # \1. 评论页面要求：
-# a.提示欢迎xx进入评论页面。
-# b.让用户选择要评论的文章。
+# a.提示欢迎xx进入评论页面
+# b.让用户选择要评论的文章
 # 这个需要借助于os模块实现此功能。将所有的文章文件单独放置在一个目录中，利用os模块listdir功能, 可以将一个目录下所有的文件名以字符串的形式存在一个列表中并返回。
 # 例如： 在 article 目录下存放文件
 # 代码：
