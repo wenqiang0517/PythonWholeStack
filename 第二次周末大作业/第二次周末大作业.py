@@ -19,7 +19,6 @@
 import os
 import sys
 user_status = {'name': None, 'status': False}
-user_comment = {}
 
 def user_dic():
     with open('user.txt', encoding='utf-8') as f:
@@ -88,13 +87,17 @@ def article():
             if choose == '1':
                 file_name = input('请输入文件名：')
                 file_content = input('请输入文件内容：')
-                with open(file_name, encoding='utf-8', mode='w') as f:
+                with open(f'article/{file_name}', encoding='utf-8', mode='w') as f:
                     f.write(file_content)
+                    f.write("""\n评论区：
+-----------------------------------------""")
             elif choose == '2':
                 file_name = input('请输入要导入的md文件路径：')
                 with open(file_name, encoding='utf-8') as f, open(f'{file_name[:-3]}.txt', encoding='utf-8', mode='w') as f1:
                     for i in f:
                         f1.write(i)
+                    f1.write("""\n评论区：
+-----------------------------------------""")
                 os.remove(file_name)
             elif choose == '3':
                 break
@@ -106,7 +109,6 @@ def article():
 
 @auth
 def comment():
-    global user_comment
     file_dict = {}
     sensitive = ["苍老师", "东京热", "武藤兰", "波多野结衣"]
     print(f'欢迎{user_status["name"]}进入评论页面')
@@ -115,32 +117,23 @@ def comment():
         file_dict[x+1] = y
     print(file_dict)
     while 1:
-        serial = input('请选择要评论的文件: ').strip()
+        serial = input('请选择要评论的文件(q或Q退出): ').strip()
         if serial.isdecimal():
             if int(serial) in file_dict.keys():
-                with open(f'article/{file_dict[int(serial)]}', encoding='utf-8') as f:
+                with open(f'article/{file_dict[int(serial)]}', encoding='utf-8', mode='r+') as f:
                     for i in f:
                         print(i.strip())
-                print("""评论区：
------------------------------------------""")
-                if file_dict[int(serial)] in user_comment.keys():
-                    for i in user_comment[file_dict[int(serial)]]:
-                        for x, y in i.items():
-                            print(f"""{x}:
-{y}""")
-                else:
-                    pass
-                user_comment_ = input('请输入你的评论：').strip()
-                for i in sensitive:
-                    if i in user_comment_:
-                        user_comment_ = user_comment_.replace(i, '*' * len(i))
-                print(user_comment_)
-                print(file_dict[int(serial)])
-                print({user_status["name"]: user_comment_})
-                print(user_comment[file_dict[int(serial)]])
-                # user_comment[file_dict[int(serial)]] = user_comment[file_dict[int(serial)]].append({user_status["name"]: user_comment_})
+                    user_comment_ = input('请输入你的评论：').strip()
+                    for i in sensitive:
+                        if i in user_comment_:
+                            user_comment_ = user_comment_.replace(i, '*' * len(i))
+                    print(user_comment_)
+                    f.write(f'\n{user_status["name"]}:\n')
+                    f.write(f'{user_comment_}')
             else:
                 print('输入序号不在范围')
+        elif serial.upper() == 'Q':
+            break
         else:
             print('输入有误，重新输入')
 
