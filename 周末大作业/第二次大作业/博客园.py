@@ -1,4 +1,4 @@
-# 第二次周末大作业：博客园
+# 周末大作业：博客园
 # 作业：用代码模拟博客园系统。
 # 项目分析：
 # 一．首先程序启动，页面显示下面内容供用户选择：
@@ -87,7 +87,7 @@ def article():
             if choose == '1':
                 file_name = input('请输入文件名：')
                 file_content = input('请输入文件内容：')
-                with open(f'article/{file_name}', encoding='utf-8', mode='w') as f:
+                with open(f'第二次大作业/article/{file_name}', encoding='utf-8', mode='w') as f:
                     f.write(file_content)
                     f.write("""\n评论区：
 -----------------------------------------""")
@@ -120,7 +120,7 @@ def comment():
         serial = input('请选择要评论的文件(q或Q退出): ').strip()
         if serial.isdecimal():
             if int(serial) in file_dict.keys():
-                with open(f'article/{file_dict[int(serial)]}', encoding='utf-8', mode='r+') as f:
+                with open(f'第二次大作业/article/{file_dict[int(serial)]}', encoding='utf-8', mode='r+') as f:
                     for i in f:
                         print(i.strip())
                     user_comment_ = input('请输入你的评论：').strip()
