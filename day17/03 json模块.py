@@ -56,7 +56,6 @@ with open('json文件1', encoding='utf-8') as f2:
 #     json.dump(dic2,f1)
 #     json.dump(dic3,f1)
 
-# 读取数据
 # with open('json文件1',encoding='utf-8') as f1:
 #     print(json.load(f1))
 #     print(json.load(f1))
