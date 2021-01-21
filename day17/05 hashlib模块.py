@@ -90,9 +90,12 @@ def file_md5(path):
     ret = hashlib.sha512()
     byte_size = os.path.getsize('apache-tomcat-9.0.41.tar.gz')
     with open(path, mode='rb') as f1:
-        while f1.tell() < byte_size:
-            ret.update(f1.read(1024))
-    return ret.hexdigest()
+        while 1:
+            content = f1.read(1024)
+            if content:
+                ret.update(content)
+            else:
+                return ret.hexdigest()
 
 result = file_md5('apache-tomcat-9.0.41.tar.gz')
 print(result)
