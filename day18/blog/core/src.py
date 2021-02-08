@@ -1,7 +1,7 @@
 import os
+import json
 from conf import settings
 from lib import common
-user_status = {'name': None, 'status': False}
 
 
 def user_dic():
@@ -15,7 +15,7 @@ def user_dic():
 
 
 def login():
-    global user_status
+    user_status = common.read_user_status()
     user_dic_ = user_dic()
     for i in range(3):
         username = input('请输入用户名：').strip()
@@ -24,10 +24,12 @@ def login():
             if user_dic_[username] == password:
                 print('登陆成功')
                 user_status.update(name=username, status=True)
+                common.write_user_status(user_status)
                 return username
             else:
                 print('密码错误')
                 user_status.update(name=username, status=False)
+                common.write_user_status(user_status)
         else:
             print('用户名不存在')
     else:
@@ -54,6 +56,7 @@ def register():
 
 @common.auth
 def article():
+    user_status = common.read_user_status()
     print(f'欢迎{user_status["name"]}进入文章页面')
     while 1:
         choose = input('请选择 1,直接写入内容 2,导入md文件 3,退出: ')
@@ -81,10 +84,11 @@ def article():
             print('输入有误')
 
 
-@common.auth
+@common.auth   # comment = auth(comment)
 def comment():
     file_dict = {}
     sensitive = ["苍老师", "东京热", "武藤兰", "波多野结衣"]
+    user_status = common.read_user_status()
     print(f'欢迎{user_status["name"]}进入评论页面')
     file_list = os.listdir(settings.article)
     for x, y in enumerate(file_list):
@@ -114,18 +118,22 @@ def comment():
 
 @common.auth
 def diary():
+    user_status = common.read_user_status()
     print(f'欢迎{user_status["name"]}进入日记页面')
 
 
 @common.auth
 def collect():
+    user_status = common.read_user_status()
     print(f'欢迎{user_status["name"]}进入收藏页面')
 
 
 @common.auth
 def logout():
     print('注销账号')
+    user_status = common.read_user_status()
     user_status['status'] = False
+    common.write_user_status(user_status)
 
 
 def exit_s():
