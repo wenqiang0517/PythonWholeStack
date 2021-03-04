@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import os
 import time
-
+# https://www.cnblogs.com/hanfe1/p/13131583.html
 
 def get_image(url, pic_name):
     # chromedriver的路径
