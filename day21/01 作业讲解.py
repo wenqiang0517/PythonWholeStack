@@ -20,12 +20,12 @@
 
 # 递归相关
 # 1.计算阶乘 100! = 100*99*98*97*96....*1
-def fin(n):
-    if n == 1:
-        return n
-    else:
-        return n * fin(n-1)
-print(fin(10))
+# def fin(n):
+#     if n == 1:
+#         return n
+#     else:
+#         return n * fin(n-1)
+# print(fin(10))
 
 # 1.os模块:查看一个文件夹下的所有文件,这个文件夹下面还有文件夹,不能用walk
 import os
@@ -47,12 +47,14 @@ def func(path):
     for i in ret:
         abs_path = os.path.join(path, i)
         if os.path.isdir(abs_path):
-            func(abs_path)
+            ret = func(abs_path)
+            size += ret
         else:
             size += os.path.getsize(abs_path)
+    return size
 
-func('/Users/luwenqiang/Documents/lwq/PythonProject/PythonWholeStack')
-
+# func('/Users/luwenqiang/Documents/lwq/PythonProject/PythonWholeStack')
+# print(func('C://Program Files (x86)//Python//PythonWholeStack'))
 
 # 3.计算斐波那契数列
     # 找第100个数
@@ -125,6 +127,12 @@ menu = {
 }
 
 
+def func(menu):
+    for i in menu:
+        print(i)
+    city = input('>>>')
+    func(menu[city])
+func(menu)
 
 
 
