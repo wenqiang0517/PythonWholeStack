@@ -128,10 +128,20 @@ menu = {
 
 
 def func(menu):
-    for i in menu:
-        print(i)
-    city = input('>>>')
-    func(menu[city])
+    while True:
+        for i in menu:
+            print(i)
+        key = input('>>>').strip()
+        if menu.get(key):
+            flag = func(menu[key])
+            if not flag:
+                return False
+        elif key.upper() == 'B':
+            return True
+        elif key.upper() == 'Q':
+            return False
+
+
 func(menu)
 
 
