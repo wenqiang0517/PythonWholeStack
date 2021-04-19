@@ -146,3 +146,93 @@
         # 如果自己有 用自己的
         # 自己没有 用父类的
         # 如果自己有 还想用父类的 : 直接在子类方法中调父类的方法 父类名.方法名(self)
+
+# 思考一:下面代码的输出?
+class Foo:
+    def __init__(self):
+        self.func()   # 在每一个self调用func的时候,我们不看这句话是在哪里执行,只看self是谁
+
+    def func(self):
+        print('in foo')
+
+
+class Son(Foo):
+    def func(self):
+        print('in son')
+
+
+Son()   # in son
+
+# 思考二: 如果想给狗和猫定制个性的属性
+
+
+class Animal:
+    def __init__(self, name, food):
+        self.name = name
+        self.food = food
+        self.blood = 100
+        self.waise = 100
+
+    def eat(self):
+        print('%s is eating %s' % (self.name, self.food))
+
+    def drink(self):
+        print('%s is drinking' % self.name)
+
+    def sleep(self):
+        print('%s is sleeping' % self.name)
+
+
+class Cat(Animal):
+    def __init__(self, name, food, eye_color):
+        Animal.__init__(self, name, food)
+        self.eye_color = eye_color
+
+
+class Dog(Animal):
+    def __init__(self, name, food, size):
+        Animal.__init__(self, name, food)       # 调用了父类的初始化,去完成一些通用属性的初始化
+        self.size = size                        # 派生属性
+
+# 猫 : eye_color眼睛的颜色
+# 狗 : size型号
+
+
+small_write = Cat('小白', '猫粮', '蓝色')
+print(small_write.eye_color)
+
+big_black = Dog('大黑', '狗粮', '大型犬')
+print(big_black.size)
+
+
+# 单继承和多继承
+# 单继承
+# class D:
+#     def func(self):
+#         print('in D')
+# class C(D):pass
+# class A(C):
+#     def func(self):
+#         print('in A')
+# class B(A):pass
+# B().func()
+
+# 多继承 有好几个爹
+    # 有一些语言不支持多继承 java
+    # python语言的特点 : 可以在面向对象中支持多继承
+# class B:
+#     def func(self):print('in B')
+# class A:
+#      def func(self):print('in A')
+#
+# class C(B,A):pass
+# C().func()
+
+# 单继承
+# 调子类的 : 子类自己有的时候
+# 调父类的 : 子类自己没有的时候
+# 调子类和父类的 :子类父类都有,在子类中调用父类的
+
+# 多继承
+# 一个类有多个父类,在调用父类方法的时候,按照继承顺序,先继承的就先寻找
+
