@@ -1,0 +1,166 @@
+单选题-----------
+使用nginx代理web服务，现在需要将http请求全部重定向到https，下方正确的是
+server {
+	listen 80;
+	server_name bar.com;
+	{{ 此处代码替换为下方选项 }}
+}
+
+server{
+	listen 443 ssl;
+	server_name bar.com;
+}
+
+A, return 307 https://$server_name$request_uri;
+B, return 301 https://$server_name$request_uri;
+C, return 303 https://$server_name$request_uri;
+D, return 302 https://$server_name$request_uri;   --
+
+
+k8s集群中，使用deployment部署A服务，但此服务启动前需要加载 "特定文件(数据)" 才能启动，你会使用以下哪种方式将此文件挂到A服务的docker中
+A, 将docker目录映射到主机，并在主机对应目录中提前放置此文件  --
+B, A服务启动时，使用docker cp命令，将特定文件拷贝到A服务中
+C, 使用Dockerfile，重新构建A服务，在使用Deployment进行部署
+D, 将特定文件做成docker镜像，在使用init sidecar，拷贝到A服务的docker中
+
+
+需要在生产环境的k8s上新部署一组ES集群，下方哪种部署方式耗时最短
+A, 参考官方文档，使用statefulset分别部署master和data节点  --
+B, 参考官方文档，使用deployment分别部署master和data节点
+C, 参考helm hub内容，使用helm模板分别部署master和data节点
+
+
+某完全二叉树共有199个结点，则该二叉树中有多少个叶子结点
+A, 75
+B, 50
+C, 100
+D, 25
+
+
+一台4c，32g的服务器上，部署es服务，es服务的jvm内存应设置成多少？
+A, 16
+B, 32
+C, 8
+D, 31
+
+
+
+多选题------------------------
+redis支持的数据类型
+A, long
+B, list
+C, string
+D, set
+E, int
+
+
+在kafka2.3.0以前的版本，常常因为rebalance导致集群不稳定，重复消费，消费堆积等等，下方描述正确的是
+A, 非业务需求，尽量减少consumer和partition变更
+B, 队列堆积后，快速扩容partition
+C, consumer消费超时后，会导致rebalance
+D, 队列堆积后，立即重启consumer
+
+
+选出常见的NOSQL数据库
+A, mongodb
+B, mysql
+C, etcd
+D, sqllite
+E, postgresql
+
+
+关于http response code，选择正确的说法
+A, 通常使用6xx来表示服务器异常，比如600、603
+B, web服务器，可以通过设置response header的方式来设置response code
+C, 通常使用403来表示请求的资源 not found
+D, 通常使用2xx来表示http请求成功，比如200，201
+E, 可以使用3xx来表示http重定向，比如301，302，303
+
+
+es集群因配置文件修改，需要重启生效，所以常常使用动态配置，下方关于动态配置描述正确的是
+A, transient 配置优先级高于 persistent
+B, persistent 配置为最低优先级，并且重启后生效
+C, transient 配置为最高优先级，并且重启后不生效
+D, 动态配置分为2中方式，分别是 transient persistent
+
+
+
+判断题----------
+ELK中不需要为logstash的索引创建template，主要为了提高开发同学查询日志效率
+A, 以上描述错误
+B, 以上描述正确
+
+
+问答题----------
+在k8s中，最常用的两种探针是readiness和liveness
+关于这两种探针的使用方案如下，是否正确？为什么？
+1，readiness 和 liveness 都是用http方式
+2，readiness接口对服务使用的强依赖进行检查，当强依赖无法使用，服务全部功能无法正常提供服务，此接口会返回5xx
+3，liveness对弱依赖进行检查，当弱依赖无法使用，服务部分功能可使用，此接口会返回5xx
+
+
+
+给你一个数组nums，数组中有2n个元素，按 [x1,x2,...,xn,y1,y2,...,yn] 的格式排列
+请你将数组按 [x1,y2,x2,y2,...,xn,yn] 格式重新排列，反馈重排后的数组
+示例1：
+输入：nums = [2, 5, 1, 3, 4, 7], n = 3
+输出：[2,3,5,4,1,7]
+解释：由于 x1=2, x2=5, x3=1, y1=3, y2=4, y3=7
+
+示例2：
+输入：nums = [1,2,3,4,4,3,2,1], n = 4
+输出：[1,4,2,3,3,2,4,1]
+
+示例3：
+输入：nums = [1,1,2,2], n = 2
+输出：[1,2,1,2]
+
+方法头：
+def shuffle(nums, n):
+
+
+
+给你一个 m * n 的矩阵 grid
+请你统计并返回 grid 中 负数 的数目
+示例1：
+输入：grid = [[4, 3, 2, -1], [3, 2, 1, -1], [1, 1, -1, -2], [-1, -1, -2, -3]]
+输出：8
+解释：矩阵中共有8个负数
+
+示例2：
+输入：grid = [[3, 2], [1, 0]]
+输出：0
+
+示例3：
+输入：grid = [[1, -1], [-1, -1]]
+输出：3
+
+示例4：
+输入：grid = [[-1]]
+输出：1
+
+方法头：
+def countNegatives(grid):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
