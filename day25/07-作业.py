@@ -72,54 +72,116 @@ obj.f2()
     # 5.1 while循环提示用户输入: 用户名、密码、邮箱(正则满足邮箱格式)
     # 5.2 为每个用户创建1个对象，并添加到列表中。
     # 5.3 当列表中的添加 3个对象后，跳出循环并以此循环打印所有用户的姓名和邮箱
+
+"""
+import re
+class User:
+    def __init__(self, username, password, email):
+        self.username = username
+        self.password = password
+        self.email = email
+
+
 user_list = []
-# while True:
-#     user = input("请输入用户名:")
-#     pwd = input("请输入密码:")
-#     email = input("请输入邮箱:")
-
-
-
-
-
+while True:
+    if len(user_list) < 3:
+        user = input("请输入用户名:")
+        pwd = input("请输入密码:")
+        while True:
+            email = input("请输入邮箱:").strip()
+            result = re.search('\w+@\w+\.com(\.cn)?', email)
+            if result:
+                email = result.group()
+                break
+            else:
+                print('重新输入')
+                continue
+        people = User(user, pwd, email)
+        user_list.append(people)
+    else:
+        for i in user_list:
+            print(i.username, i.email)
+        break
+"""
 
 # 6，补充代码，实现用户登录和注册
-# class User:
-#     def __init__(self, name, pwd):
-#         self.name = name
-#         self.pwd = pwd
-#
-#
-# class Account:
-#     def __init__(self):
-#         # 用户列表，数据格式：[user对象，user对象，user对象]
-#         self.user_list = []
-#
-#     def login(self):
-#         """
-#         用户登录，输入用户名和密码然后去self.user_list中校验用户合法性
-#         :return:
-#         """
-#         pass
-#
-#     def register(self):
-#         """
-#         用户注册，没注册一个用户就创建一个user对象，然后添加到self.user_list中，表示注册成功。
-#         :return:
-#         """
-#         pass
-#
-#     def run(self):
-#         """
-#         主程序
-#         :return:
-#         """
-#         pass
-#
-#
-# if __name__ == '__main__':
-#     obj = Account()
-#     obj.run()
+class User:
+    def __init__(self, name, pwd):
+        self.name = name
+        self.pwd = pwd
+
+
+class Account:
+    def __init__(self):
+        # 用户列表，数据格式：[user对象，user对象，user对象]
+        self.user_list = []
+        self.dic = {}
+        self.lis = []
+
+    def login(self):
+        """
+        用户登录，输入用户名和密码然后去self.user_list中校验用户合法性
+        :return:
+        """
+        username = input('请输入用户名').strip()
+        pwd = input('请输入密码').strip()
+        for i in self.user_list:
+            self.dic = dict()
+            self.dic[i.name] = i.pwd
+        # print(self.dic)
+        if username in self.dic.keys():
+            if pwd == self.dic[username]:
+                print('登录成功')
+                return True
+            else:
+                print('密码错误，重新输入')
+        else:
+            print('用户不存在，请先注册')
+            self.register()
+
+    def register(self):
+        """
+        用户注册，每注册一个用户就创建一个user对象，然后添加到self.user_list中，表示注册成功。
+        :return:
+        """
+        while True:
+            username = input('请输入用户名').strip()
+            pwd = input('请输入密码').strip()
+            for i in self.user_list:
+                self.lis = []
+                self.lis.append(i.name)
+            print(self.lis)
+            if username in self.lis:
+                print('用户已存在,请重新输入')
+            else:
+                people = User(username, pwd)
+                self.user_list.append(people)
+                break
+
+    def run(self):
+        """
+        主程序
+        :return:
+        """
+        opt_lst = ['登录', '注册']
+        while True:
+            for a, b in enumerate(opt_lst, 1):
+                print(a, b)
+            num = input('请选择：').strip()
+            if num == '1':
+                self.login()
+            elif num == '2':
+                self.register()
+            elif num.upper() == 'Q':
+                print('退出')
+                break
+            else:
+                print('请重新输入')
+
+
+if __name__ == '__main__':
+    obj = Account()
+    obj.run()
 
 
 # 6.5 将第6题的需求进行修改，不用列表了，改成读取本地文件
@@ -211,8 +273,5 @@ print(Foo.n2)
 # 武沛齐
 # 报错------
 """
-
-import kubernetes
-kubernetes.config.load_kube_config()
 
 

@@ -18,16 +18,16 @@ D, return 302 https://$server_name$request_uri;   --
 
 
 k8s集群中，使用deployment部署A服务，但此服务启动前需要加载 "特定文件(数据)" 才能启动，你会使用以下哪种方式将此文件挂到A服务的docker中
-A, 将docker目录映射到主机，并在主机对应目录中提前放置此文件  --
+A, 将docker目录映射到主机，并在主机对应目录中提前放置此文件
 B, A服务启动时，使用docker cp命令，将特定文件拷贝到A服务中
 C, 使用Dockerfile，重新构建A服务，在使用Deployment进行部署
 D, 将特定文件做成docker镜像，在使用init sidecar，拷贝到A服务的docker中
 
 
 需要在生产环境的k8s上新部署一组ES集群，下方哪种部署方式耗时最短
-A, 参考官方文档，使用statefulset分别部署master和data节点  --
+A, 参考官方文档，使用statefulset分别部署master和data节点
 B, 参考官方文档，使用deployment分别部署master和data节点
-C, 参考helm hub内容，使用helm模板分别部署master和data节点
+C, 参考helm hub内容，使用helm模板分别部署master和data节点   -----
 
 
 某完全二叉树共有199个结点，则该二叉树中有多少个叶子结点
@@ -38,7 +38,7 @@ D, 25
 
 
 一台4c，32g的服务器上，部署es服务，es服务的jvm内存应设置成多少？
-A, 16
+A, 16       -----
 B, 32
 C, 8
 D, 31
@@ -62,9 +62,9 @@ D, 队列堆积后，立即重启consumer
 
 
 选出常见的NOSQL数据库
-A, mongodb
+A, mongodb      -----
 B, mysql
-C, etcd
+C, etcd     -----
 D, sqllite
 E, postgresql
 
@@ -117,7 +117,13 @@ B, 以上描述正确
 
 方法头：
 def shuffle(nums, n):
-
+    new_nums = []
+    new_nums_1 = nums[:n]
+    new_nums_2 = nums[n:]
+    for i in range(n):
+        new_nums.append(new_nums_1[i])
+        new_nums.append(new_nums_2[i])
+    return new_nums
 
 
 给你一个 m * n 的矩阵 grid
@@ -141,26 +147,10 @@ def shuffle(nums, n):
 
 方法头：
 def countNegatives(grid):
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    count = 0
+    for i in grid:
+        for x in i:
+            if x < 0:
+                count += 1
+    return count
 
