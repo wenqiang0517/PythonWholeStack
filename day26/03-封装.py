@@ -46,3 +46,54 @@
 # 所有的私有化都是为了让用户不在外部调用类中的某个名字
 # 如果完成私有化 那么这个类的封装度就更高了 封装度越高各种属性和方法的安全性也越高 但是代码越复杂
 
+
+# 加了双下划线的名字为啥不能从类的外部调用了?
+class User:
+    __Country = 'China'   # 私有的静态变量
+    __Role = '法师'   # 私有的静态变量
+    def func(self):
+        print(self.__Country)  # 在类的内部使用的时候,自动的把当前这句话所在的类的名字拼在私有变量前完成变形
+print(User._User__Country)
+print(User._User__Role)
+# __Country -->'_User__Country': 'China'
+# __Role    -->'_User__Role': '法师'
+User.__aaa = 'bbb'  # 在类的外部根本不能定义私有的概念
+
+
+# 私有的内容能不能被子类使用呢? 不能
+class Foo(object):
+    def __init__(self):
+        self.func()
+    def func(self):
+        print('in foo')
+class Son(Foo):
+    def func(self):
+        print('in son')
+Son()   # in son
+
+
+class Foo(object):
+    def __init__(self):
+        self.__func()
+    def __func(self):
+        print('in foo')
+class Son(Foo):
+    def __func(self):
+        print('in son')
+Son()   # in foo
+
+
+class Foo(object):
+    def __func(self):
+        print('in Foo')
+class Son(Foo):
+    def __init__(self):
+        self.__func()
+Son()   # 报错
+
+
+# 在其他语言中的数据的级别都有哪些?在python中有哪些?
+# public  公有的 类内类外都能用,父类子类都能用         python支持
+# protect 保护的 类内能用,父类子类都能用,类外不能用    python不支持
+# private 私有的 本类的类内部能用,其他地方都不能用     python支持
+
